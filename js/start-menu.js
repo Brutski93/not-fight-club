@@ -7,7 +7,8 @@ const sectionStart = document.querySelector('.start');
 const sectionMain = document.querySelector('.main');
 const sectionSetting = document.querySelector('.setting');
 const sectionProfile = document.querySelector('.profile');
-const allSections = [sectionStart, sectionMain, sectionSetting, sectionProfile];
+const sectionFight = document.querySelector('.fight');
+const allSections = [sectionStart, sectionMain, sectionSetting, sectionProfile, sectionFight];
 
 const buttonMain = document.getElementById('menu-main'); // header
 const buttonSetting = document.getElementById('menu-setting'); // header
@@ -18,15 +19,26 @@ const settinfPopup = document.querySelector('.settig-popup');
 const settingOk = document.querySelector('.input-setting-ok'); // button to submit changing the name in setting
 const input2 = document.querySelector('.input-setting-name'); // input in setting
 
+const buttonFight = document.querySelector('.div-fight'); // button to fight menu
+
 const profileName = document.querySelector('.profile-name'); // profile-name h3
 const profileImg = document.querySelector('.profile-img'); // profile-img
 const profileCardHolder = document.querySelector('.profile-classes'); // profile all card holder
+
+const fightName = document.querySelector('.fight-name'); // fight player's name
+const fightImg = document.querySelector('.fight-img'); // fight player's image
+const fightHP = document.querySelector('.fight-hp'); // fight player's HP
+const fightNameEnemy = document.querySelector('.fight-name-enemy'); // fight Enemy's name
+const fightImgEnemy = document.querySelector('.fight-img-enemy'); // fight Enemy's image
+const fightHPEnemy = document.querySelector('.fight-hp-enemy'); // fight Enemy's HP
+const fightLog = document.querySelector('.fight-log'); // fight log
 
 /////////////////////////////////////////////////////////////////////////////////////
 
 buttons.forEach(a => a.addEventListener('click', changeHero));
 start.addEventListener('click', createHero);
 buttonMain.addEventListener('click', showMain);
+buttonFight.addEventListener('click', showFight);
 buttonSetting.addEventListener('click', showSetting);
 buttonProfile.addEventListener('click', showProfile);
 settingButton.addEventListener('click', showPopupToChangeName);
@@ -63,6 +75,9 @@ function showSetting() {
 function showProfile() {
   hideAllSectionsExept(sectionProfile);
 }
+function showFight() {
+  hideAllSectionsExept(sectionFight);
+}
 /* start */
 function changeHero(event) {
   buttons.forEach(a => a.classList.remove('chouse-fighter-button-active'));
@@ -86,6 +101,7 @@ function changeName(name) {
   document.cookie = `user=${name}`;
   settingName.innerText = name;
   profileName.innerText = name;
+  fightName.innerText = name;
 }
 function changeNameInSetting() {
   hidePopupToChangeName();
@@ -104,8 +120,10 @@ function changeClass(event) {
   text = text.toLowerCase();
   for (let i = 0; i < classesName.length; i += 1) {
     profileImg.classList.remove(classesName[i]);
+    fightImg.classList.remove(classesName[i]);
   }
   profileImg.classList.add(text);
+  fightImg.classList.add(text);
   document.cookie = `class=${text}`;
 }
 // ------------------- builder --------------------------------------
@@ -114,7 +132,10 @@ const tempDate = document.cookie.split(';');
 tempDate.forEach(a => {
   if (a.includes('gamestarted')) gameInfo = a; // check is character created
   if (a.includes('user')) changeName(a.slice(6));
-  if (a.includes('class')) profileImg.classList.add(a.slice(7)); // set profile image
+  if (a.includes('class')) {
+    profileImg.classList.add(a.slice(7)); // set profile image
+    fightImg.classList.add(a.slice(7)); // set fight image
+  }
 });
 if (!gameInfo) showStart(); // first run
 else showMain(); // continue game
