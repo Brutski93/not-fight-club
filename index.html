@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>Gomel Oldschool Arena</title>
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/font-styles.css" rel="stylesheet">
+    <link type="image/x-icon" href="imgs/mortal-kombat.png" rel="shortcut icon">
+    <link type="Image/x-icon" href="imgs/mortal-kombat.png" rel="icon">
+  </head>
+  <body>
+    <header class="wrapper">
+      <nav>
+        <div id="menu-setting" class="header-menu">Setting</div>
+        <div id="menu-profile" class="header-menu">Profile</div>
+        <div id="menu-main" class="header-menu">Main</div>
+      </nav>
+    </header>
+    <section class="start over-left">
+      <h2>Create your champion</h2>
+      <h3>Your fighter's name:<h3>
+      <input class="input-name" value="Nagibator93">
+      <h3>Chouse your fighter</h3>
+      <div class="chouse-fighter">
+        <div class="chouse-fighter-button chouse-fighter-button-active">Paladin</div>
+        <div class="chouse-fighter-button">Ranger</div>
+        <div class="chouse-fighter-button">Fighter</div>
+        <div class="chouse-fighter-img paladin"></div>
+      </div>
+      <div class="start-button">Let's go!</div>
+    </section>
+    <section class="main over-left">
+      <div class="div-fight">Fight!</div>
+    </section>
+    <section class="profile over-left">
+      <div class="profile-box profile-left">
+        <h3 class="profile-name"></h3>
+        <div class="profile-img"></div>
+        <div class="profile-score">
+          <span>Wins:</span><span class="frofile-wins">0</span>
+          <span>Loose:</span><span class="frofile-loose">0</span>
+        </div>
+      </div>
+      <div class="profile-box profile-right">
+        <h4>Change your class:</h4>
+        <div class="profile-classes">
+          <!-- <div class="profile-classes-card">
+            <div class="profile-classes-card-class">Paladin</div>
+            <div class="profile-classes-card-img paladin"></div>
+          </div> -->
+        </div>
+      </div>
+    </section>
+    <section class="setting over-left">
+      <h3>Your fighter's name: <span class="setting-name"></span><h3>
+      <div class="setting-change">Change name</div>
+      <div class="settig-popup hidden">
+        <input class="input-setting-name" value="...">
+        <div class="input-setting-ok">ok</div>
+      </div>
+    </section>
+    <section class="fight over-left">
+      <div class="fight-div">
+        <h3 class="fight-name"></h3>
+        <div class="fight-img"></div>
+        <div class="fight-hp-bar">
+          <div class="fight-hp"></div>
+        </div>
+      </div>
+      <div class="fight-div"></div>
+      <div class="fight-div">
+        <h3 class="fight-name-enemy"></h3>
+        <div class="fight-img-enemy"></div>
+        <div class="fight-hp-bar">
+          <div class="fight-hp-enemy"></div>
+        </div>
+      </div>
+      <div class="fight-log"></div>
+    </section>
+    <script src="js/start-menu.js"></script>
+  </body>
+</html>

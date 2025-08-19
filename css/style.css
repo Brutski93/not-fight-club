@@ -1,0 +1,328 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
+  outline: 0;
+  text-decoration: none;
+  list-style: none;
+  transition: 500ms;
+}
+:root {
+  --black: #030303;
+  --red: #710707;
+  --yellow: #edf948;
+  --gray: #616161;
+  --light-gray: #a1a1a1;
+  --white: #ffffff;
+}
+html {
+  scroll-behavior: smooth;
+}
+html::-webkit-scrollbar {
+  display: none;;
+}
+body {
+  background-color: var(--gray);
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+header {
+  position: fixed;
+  top: 0;
+  background-color: var(--black);
+  border-radius: 0 0 25% 25%;
+  height: 100px;
+  width: 100%;
+}
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+nav {
+  color: var(--white);
+  font-size: 2rem;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  width: 50%;
+}
+.header-menu {
+  cursor: pointer;
+  margin: 0 15px;
+  color: var(--white);
+}
+.header-menu:hover {
+  color: var(--yellow);
+}
+#menu-start {
+  flex-grow: 1;
+}
+section {
+  position: absolute;
+  top: 140px;
+  left: 5vw;
+  width: 90vw;
+  border: 3px var(--black) solid;
+  height: 80%;
+}
+.setting, .fight {
+  display: none;
+}
+h3 {
+  color: var(--black);
+  font-size: 2em;
+  font-weight: 500;
+}
+/* ----------------------------------------------- start ----------------------------------------------- */
+.start {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.input-name, .input-setting-name {
+  height: 1.2em;
+  font-size: 0.8em;
+}
+.chouse-fighter {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 500px;
+}
+.chouse-fighter-button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  background-color: var(--light-gray);
+  border: 2px black solid;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.chouse-fighter-button-active {
+  background-color: var(--yellow);
+  border: 2px rgb(251, 251, 251) solid;
+}
+.chouse-fighter-img {
+  margin-top: 20px;
+  width: 200px;
+  height: 250px;
+}
+.warlock, .wizard, .sorcerer, .rouge, .monk, .paladin, .ranger, .fighter, .artificer, .barbarian, .bard, .cleric, .druid {
+  background-size: 100%;
+  background-position: center;
+}
+.paladin {
+  background: url(/imgs/classes_paladin.png) no-repeat;
+}
+.ranger {
+  background: url(/imgs/classes_ranger.png) no-repeat;
+}
+.fighter {
+  background: url(/imgs/classes_fighter.png) no-repeat;
+}
+.artificer {
+  background: url(/imgs/classes_artificer.png) no-repeat;
+}
+.barbarian {
+  background: url(/imgs/classes_barbarian.png) no-repeat;
+}
+.bard {
+  background: url(/imgs/classes_bard.png) no-repeat;
+}
+.cleric {
+  background: url(/imgs/classes_cleric.png) no-repeat;
+}
+.druid {
+  background: url(/imgs/classes_druid.png) no-repeat;
+}
+.monk {
+  background: url(/imgs/classes_monk.png) no-repeat;
+}
+.rouge {
+  background: url(/imgs/classes_rouge.png) no-repeat;
+}
+.sorcerer {
+  background: url(/imgs/classes_sorcerer.png) no-repeat;
+}
+.warlock {
+  background: url(/imgs/classes_warlock.png) no-repeat;
+}
+.wizard {
+  background: url(/imgs/classes_wizard.png) no-repeat;
+}
+.start-button {
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: var(--light-gray);
+  border: 2px var(--black) solid;
+  border-radius: 10px;
+  cursor: pointer;
+}
+/* ----------------------------------------------- main ----------------------------------------------- */
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.div-fight {
+  padding: 10px;
+  cursor: pointer;
+  font-size: 2em;
+  border: 2px black solid;
+}
+.div-fight:hover {
+  border: 2px var(--yellow) solid;
+  color: var(--yellow);
+}
+/* ----------------------------------------------- profile ----------------------------------------------- */
+.profile {
+  display: flex;
+}
+.profile-box {
+  width: 50%;
+  height: 100%;
+}
+.profile-left, .profile-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profile-name {
+  margin: 25px;
+}
+.profile-img {
+  width: 204px;
+  height: 254px;
+  border: 2px var(--black) solid;
+}
+.profile-score {
+  width: 200px;
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.profile-score span {
+  width: 50%;
+  font-size: 1.1em;;
+}
+.frofile-wins, .frofile-loose {
+  color: var(--yellow);
+  text-align: end;
+}
+h4 {
+  margin: 15px 0;
+  font-size: 1.5em;
+  color: var(--yellow);
+}
+.profile-classes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 15px 15px 0;
+}
+.profile-classes-card {
+  color: var(--white);
+  width: 104px;
+  text-align: center;
+  cursor: pointer;
+}
+.profile-classes-card:hover {
+  color: var(--yellow);
+}
+.profile-classes-card:hover .profile-classes-card-img{
+  border: 2px var(--yellow) solid;
+}
+.profile-classes-card-img {
+  width: 104px;
+  height: 127px;
+  border: 2px var(--black) solid;
+  background-size: 100%;
+}
+/* ----------------------------------------------- setting ----------------------------------------------- */
+.setting {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.setting-change {
+  border: 2px var(--black) solid;
+  margin: 15px;
+  padding: 7px;
+  cursor: pointer;
+}
+.setting-change:hover {
+  border: 2px var(--yellow) solid;
+  color: var(--yellow);
+}
+.settig-popup {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--gray);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.input-setting-ok {
+  border: 2px var(--black) solid;
+  cursor: pointer;
+  margin: 5px;
+  padding: 3px;
+}
+/* ----------------------------------------------- fight ----------------------------------------------- */
+.fight {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.fight-log {
+  width: 100%;
+  height: 200px;
+  margin: 5px 10px;
+  background-color: var(--light-gray);
+}
+.fight-div {
+  background-color: aqua;
+  max-height: 350px;
+}
+.fight-img-enemy, .fight-img {
+  width: 204px;
+  height: 254px;
+  border: 2px var(--black) solid;
+}
+.fight-hp-bar {
+  width: 204px;
+  height: 24px;
+  border: 2px var(--black) solid;
+  margin-top: 10px;
+  background-color: var(--white);
+  text-align: center;
+  position: relative;
+}
+.fight-hp-enemy, .fight-hp {
+  width: 75%;
+  height: 21px;
+  background-color: var(--red);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.fight-div h3 {
+  text-align: center;
+}
+/* ----------------------------------------------- other ----------------------------------------------- */
+.over-left {
+  left: -100vw;
+}
+.hidden {
+  display: none;
+}
