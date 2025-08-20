@@ -110,49 +110,6 @@ h3 {
   width: 200px;
   height: 250px;
 }
-.warlock, .wizard, .sorcerer, .rouge, .monk, .paladin, .ranger, .fighter, .artificer, .barbarian, .bard, .cleric, .druid {
-  background-size: 100%;
-  background-position: center;
-}
-.paladin {
-  background: url(/imgs/classes_paladin.png) no-repeat;
-}
-.ranger {
-  background: url(/imgs/classes_ranger.png) no-repeat;
-}
-.fighter {
-  background: url(/imgs/classes_fighter.png) no-repeat;
-}
-.artificer {
-  background: url(/imgs/classes_artificer.png) no-repeat;
-}
-.barbarian {
-  background: url(/imgs/classes_barbarian.png) no-repeat;
-}
-.bard {
-  background: url(/imgs/classes_bard.png) no-repeat;
-}
-.cleric {
-  background: url(/imgs/classes_cleric.png) no-repeat;
-}
-.druid {
-  background: url(/imgs/classes_druid.png) no-repeat;
-}
-.monk {
-  background: url(/imgs/classes_monk.png) no-repeat;
-}
-.rouge {
-  background: url(/imgs/classes_rouge.png) no-repeat;
-}
-.sorcerer {
-  background: url(/imgs/classes_sorcerer.png) no-repeat;
-}
-.warlock {
-  background: url(/imgs/classes_warlock.png) no-repeat;
-}
-.wizard {
-  background: url(/imgs/classes_wizard.png) no-repeat;
-}
 .start-button {
   padding: 10px 20px;
   margin: 10px;
@@ -289,10 +246,16 @@ h4 {
   height: 200px;
   margin: 5px 10px;
   background-color: var(--light-gray);
+  display: flex;
+  flex-direction: column-reverse;
+  overflow: hidden;
 }
 .fight-div {
-  background-color: aqua;
   max-height: 350px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .fight-img-enemy, .fight-img {
   width: 204px;
@@ -309,7 +272,6 @@ h4 {
   position: relative;
 }
 .fight-hp-enemy, .fight-hp {
-  width: 75%;
   height: 21px;
   background-color: var(--red);
   position: absolute;
@@ -319,9 +281,124 @@ h4 {
 .fight-div h3 {
   text-align: center;
 }
+.combat-menu-content {
+  display: flex;
+}
+.fight-div p{
+  text-align: center;
+  margin-bottom: 10px;
+}
+.combat-menu-attack {
+  width: 150px;
+  border-right: 1px var(--black) solid;
+  padding-right: 5px;
+}
+.combat-menu-defense {
+  width: 150px;
+  border-left: 1px var(--black) solid;
+  padding-left: 7px;
+}
+.menu-div {
+  display: flex;
+  justify-content: space-between;
+}
+.run-fight {
+  padding: 5px 10px;
+  border: 2px var(--black) solid;
+  color: var(--black);
+  cursor: pointer;
+  margin-top: 20px;
+}
+.run-fight-active {
+  border: 2px var(--yellow) solid;
+  color: var(--yellow);
+}
 /* ----------------------------------------------- other ----------------------------------------------- */
+.paladin {
+  background: url(/imgs/classes_paladin.png) no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
+.ranger {
+  background: url(/imgs/classes_ranger.png) no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
+.fighter {
+  background: url(/imgs/classes_fighter.png) no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
+.artificer {
+  background: url(/imgs/classes_artificer.png) no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
+.barbarian {
+  background: url(/imgs/classes_barbarian.png) no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
+.bard {
+  background: url(/imgs/classes_bard.png) no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
+.cleric {
+  background: url(/imgs/classes_cleric.png) no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
+.druid {
+  background: url(/imgs/classes_druid.png) no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
+.monk {
+  background: url(/imgs/classes_monk.png) no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
+.rouge {
+  background: url(/imgs/classes_rouge.png) no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
+.sorcerer {
+  background: url(/imgs/classes_sorcerer.png) no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
+.warlock {
+  background: url(/imgs/classes_warlock.png) no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
+.wizard {
+  background: url(/imgs/classes_wizard.png) no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
+.goblin {
+  background: url(/imgs/enemys_goblin.png) no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
+.orc {
+  background: url(/imgs/enemys_orc.png) no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
+.dk {
+  background: url(/imgs/enemys_dk.png) no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
 .over-left {
   left: -100vw;
+}
+.over-top {
+  top: -50vw;
 }
 .hidden {
   display: none;
