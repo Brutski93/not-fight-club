@@ -123,12 +123,7 @@ function changeHero(event) {
   buttons.forEach(a => a.classList.remove('chouse-fighter-button-active'));
   event.currentTarget.classList.add('chouse-fighter-button-active');
   const newClass = event.currentTarget.innerHTML.toLowerCase();
-  divImg.classList.remove('paladin');
-  divImg.classList.remove('ranger');
-  divImg.classList.remove('fighter');
-  divImg.classList.add(newClass);
-  profileImg.classList.add(newClass);
-  fightImg.classList.add(newClass);
+  removeAllImgExsept(newClass);
   document.cookie = `class=${newClass}`;
 }
 
@@ -136,6 +131,7 @@ function createHero() {
   changeName(input.value);
   document.cookie = 'gamestarted=yes';
   showMain();
+  header.classList.remove('over-top');
 }
 /* setting */
 function changeName(name) {
@@ -159,16 +155,21 @@ function hidePopupToChangeName() {
 }
 
 /* profile */
+function removeAllImgExsept(text = 'paladin') {
+  for (let i = 0; i < classesName.length; i += 1) {
+    profileImg.classList.remove(classesName[i]);
+    fightImg.classList.remove(classesName[i]);
+    divImg.classList.remove(classesName[i]);
+  }
+  profileImg.classList.add(text);
+  fightImg.classList.add(text);
+  divImg.classList.add(text);
+}
 function changeClass(event) {
   let text = event.target.innerText;
   if (!text) text = event.target.previousSibling.innerText;
   text = text.toLowerCase();
-  for (let i = 0; i < classesName.length; i += 1) {
-    profileImg.classList.remove(classesName[i]);
-    fightImg.classList.remove(classesName[i]);
-  }
-  profileImg.classList.add(text);
-  fightImg.classList.add(text);
+  removeAllImgExsept(text);
   document.cookie = `class=${text}`;
 }
 /* fight */
@@ -277,6 +278,7 @@ function campareAttaksAndMakeLog(pa, pd, ea, ed) {
   } else {
     text = `${playerName} attacks ${enemyName}'s ${pa} and deal to ${enemyName} 10 damage.`;
     creatAndAppend(fightLog, 'p', false, text);
+    dealDamageToEnemy();
   }
   for (let i = 0; i < ea.length; i += 1) {
     if (pd.includes(ea[i])) {
@@ -287,6 +289,17 @@ function campareAttaksAndMakeLog(pa, pd, ea, ed) {
       creatAndAppend(fightLog, 'p', false, text);
     }
   }
+}
+
+function dealDamageToEnemy() {
+  const fullHP = enemys[getCurrentEnemyIndex()].ph;
+  const damageHP = Math.floor(1000 / fullHP);
+  const currentHP = fightHPEnemy.style.width.slice(0, -1);
+  console.log('Enemy HP before:', currentHP);
+  const finaleHP = +currentHP - damageHP + '%'
+  fightHPEnemy.style.width = finaleHP;
+  console.log('Enemy HP before:', fightHPEnemy.style.width.slice(0, -1));
+  document.cookie = `enemyHP=${finaleHP}`;
 }
 
 function clearInputs() {
@@ -309,7 +322,10 @@ tempDate.forEach(a => {
     fightImg.classList.add(a.slice(7)); // set fight image
   }
 });
-if (!gameInfo) showStart(); // first run
+if (!gameInfo) {// first run
+  showStart();
+  removeAllImgExsept();
+} 
 else showMain(); // continue game
 // start build profile all cards
 const classesName = [
