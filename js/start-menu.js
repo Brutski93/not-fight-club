@@ -25,6 +25,8 @@ const buttonFight = document.querySelector('.div-fight'); // button to fight men
 const profileName = document.querySelector('.profile-name'); // profile-name h3
 const profileImg = document.querySelector('.profile-img'); // profile-img
 const profileCardHolder = document.querySelector('.profile-classes'); // profile all card holder
+const profileWins = document.querySelector('.frofile-wins');
+const profileLoose = document.querySelector('.frofile-loose');
 
 const fightName = document.querySelector('.fight-name'); // fight player's name
 const fightImg = document.querySelector('.fight-img'); // fight player's image
@@ -36,19 +38,22 @@ const fightLog = document.querySelector('.fight-log'); // fight log
 const buttonRunFight = document.querySelector('.run-fight'); // button to attack
 const radioButtons = document.querySelectorAll('.fight-input'); // all inputs in the fight section
 
+const screenWin = document.querySelector('.win');
+const screenLoose = document.querySelector('.loose');
+
 const enemys = [{
   name: 'goblin',
-  ph: 70,
+  ph: 50,
   attacks: 1,
   defense: 1
 }, {
   name: 'orc',
-  ph: 180,
+  ph: 150,
   attacks: 2,
   defense: 1
 }, {
   name: 'dk',
-  ph: 120,
+  ph: 100,
   attacks: 2,
   defense: 2
 }];
@@ -62,6 +67,21 @@ const zones = [
 'rightleg'
 ];
 
+const classesName = [
+  'artificer',
+  'barbarian',
+  'bard',
+  'cleric',
+  'druid',
+  'fighter',
+  'monk',
+  'paladin',
+  'ranger',
+  'rouge',
+  'sorcerer',
+  'warlock',
+  'wizard'
+];
 /////////////////////////////////////////////////////////////////////////////////////
 
 buttons.forEach(a => a.addEventListener('click', changeHero));
@@ -92,6 +112,19 @@ function creatAndAppend(whatParent, whatTag, whatClass = false, whatText = false
   return newItem;
 }
 
+function creatAndPrepend(whatParent, whatTag, whatClass = false, whatText = false) {
+  const newItem = document.createElement(whatTag);
+  if (whatClass) {
+    whatClass = whatClass.split(' ');
+    for (let i = 0; i < whatClass.length; i += 1) {
+      newItem.classList.add(whatClass[i]);
+    }
+  }
+  if (whatText) newItem.innerHTML = whatText;
+  whatParent.prepend(newItem);
+  return newItem;
+}
+
 function getRandom(max) {
   return Math.floor(Math.random() * max);
 }
@@ -108,7 +141,7 @@ function showStart() {
 }
 function showSetting() {
   hideAllSectionsExept(sectionSetting);
-  console.log(document.cookie.split(';'));
+  // console.log(document.cookie.split(';'));
 }
 function showProfile() {
   hideAllSectionsExept(sectionProfile);
@@ -216,7 +249,9 @@ function resetFight() {
       fightNameEnemy.innerText = a.slice(11, 12).toUpperCase() + a.slice(12);
       resetEnemyImg(a.slice(11));
     }
-    if (a.includes('enemyHP')) fightHPEnemy.style.width = a.slice(9);
+    if (a.includes('enemyHP')) {
+      fightHPEnemy.style.width = a.slice(9);
+    }
     if (a.includes('playerHP')) fightHP.style.width = a.slice(10);
   });
 }
@@ -274,32 +309,53 @@ function campareAttaksAndMakeLog(pa, pd, ea, ed) {
   let text = '';
   if (ed.includes(pa)) {
     text = `${playerName} attacks ${enemyName}'s ${pa} , but ${enemyName} blocks it.`
-    creatAndAppend(fightLog, 'p', false, text);
+    creatAndPrepend(fightLog, 'p', false, text);
   } else {
     text = `${playerName} attacks ${enemyName}'s ${pa} and deal to ${enemyName} 10 damage.`;
-    creatAndAppend(fightLog, 'p', false, text);
+    creatAndPrepend(fightLog, 'p', false, text);
     dealDamageToEnemy();
   }
   for (let i = 0; i < ea.length; i += 1) {
     if (pd.includes(ea[i])) {
       text = `${enemyName} attacks ${playerName}'s ${ea[i]}, but ${playerName} blocks it.`
-      creatAndAppend(fightLog, 'p', false, text);
+      creatAndPrepend(fightLog, 'p', false, text);
     } else {
       text = `${enemyName} attacks ${playerName}'s ${ea[i]} and deal to ${playerName} 10 damage.`;
-      creatAndAppend(fightLog, 'p', false, text);
+      creatAndPrepend(fightLog, 'p', false, text);
+      dealDamageToPlayer();
     }
   }
 }
 
 function dealDamageToEnemy() {
   const fullHP = enemys[getCurrentEnemyIndex()].ph;
+  const damageHP = Math.floor(1000 / fullHP); // change to 1000 latter
+  const currentHP = fightHPEnemy.style.width.slice(0, -1) - 0;
+  if (currentHP <= damageHP) {
+    fightHPEnemy.style.width = '0%';
+    document.cookie = `enemyHP=0%`;
+    winFight();
+    return;
+  } else {
+    const finaleHP = currentHP - damageHP + '%';
+    fightHPEnemy.style.width = finaleHP;
+    document.cookie = `enemyHP=${finaleHP}`;
+  }
+}
+
+function dealDamageToPlayer() {
+  const fullHP = 100;
   const damageHP = Math.floor(1000 / fullHP);
-  const currentHP = fightHPEnemy.style.width.slice(0, -1);
-  console.log('Enemy HP before:', currentHP);
-  const finaleHP = +currentHP - damageHP + '%'
-  fightHPEnemy.style.width = finaleHP;
-  console.log('Enemy HP before:', fightHPEnemy.style.width.slice(0, -1));
-  document.cookie = `enemyHP=${finaleHP}`;
+  const currentHP = fightHP.style.width.slice(0, -1) - 0;
+  if (currentHP <= damageHP) {
+    fightHP.style.width = '0%';
+    document.cookie = `playerHP=0%`;
+    looseFight();
+  } else {
+    const finaleHP = currentHP - damageHP + '%';
+    fightHP.style.width = finaleHP;
+    document.cookie = `playerHP=${finaleHP}`;
+  }
 }
 
 function clearInputs() {
@@ -308,6 +364,41 @@ function clearInputs() {
   });
   buttonRunFight.classList.remove('run-fight-active');
 }
+
+function winFight() {
+  toggleWinScreen();
+  getRandonEnemy();
+  showMain();
+  increaseWins();
+  setTimeout(toggleWinScreen, 3000);
+}
+
+function looseFight() {
+  toggleLooseScreen();
+  getRandonEnemy();
+  showMain();
+  increaseLoose();
+  setTimeout(toggleLooseScreen, 3000);
+}
+
+function toggleWinScreen() {
+  screenWin.classList.toggle('hidden');
+}
+function toggleLooseScreen() {
+  screenLoose.classList.toggle('hidden');
+}
+
+function increaseWins() {
+  const temp = profileWins.innerText - 0 + 1;
+  profileWins.innerText = temp;
+  document.cookie = `countWin=${temp}`;
+}
+function increaseLoose() {
+  const temp = profileLoose.innerText - 0 + 1;
+  profileLoose.innerText = temp;
+  document.cookie = `countLoose=${temp}`;
+}
+// document.cookie = `enemyHP=1%`;
 // ------------------- builder --------------------------------------
 let gameInfo = false;
 const tempDate = document.cookie.split(';');
@@ -321,28 +412,19 @@ tempDate.forEach(a => {
     profileImg.classList.add(a.slice(7)); // set profile image
     fightImg.classList.add(a.slice(7)); // set fight image
   }
+  if (a.includes('countWin')) profileWins.innerText = a.slice(10);
+  if (a.includes('countLoose')) profileLoose.innerText = a.slice(12);
 });
 if (!gameInfo) {// first run
   showStart();
   removeAllImgExsept();
+  profileWins.innerText('0');
+  document.cookie = `countWin=0`;
+  profileLoose.innerText('0');
+  document.cookie = `countLoose=0`;
 } 
 else showMain(); // continue game
 // start build profile all cards
-const classesName = [
-  'artificer',
-  'barbarian',
-  'bard',
-  'cleric',
-  'druid',
-  'fighter',
-  'monk',
-  'paladin',
-  'ranger',
-  'rouge',
-  'sorcerer',
-  'warlock',
-  'wizard'
-];
 for (let i = 0; i < 13; i += 1) {
   const card = creatAndAppend(profileCardHolder, 'div', 'profile-classes-card');
   creatAndAppend(card, 'div', 'profile-classes-card-class', `${classesName[i].toUpperCase()}`);

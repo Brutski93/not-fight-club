@@ -303,7 +303,8 @@ h4 {
   justify-content: space-between;
 }
 .run-fight {
-  padding: 5px 10px;
+  padding: 10px 15px;
+  font-size: 1.5em;
   border: 2px var(--black) solid;
   color: var(--black);
   cursor: pointer;
@@ -312,6 +313,26 @@ h4 {
 .run-fight-active {
   border: 2px var(--yellow) solid;
   color: var(--yellow);
+}
+/* ----------------------------------------------- pop-ups fight ----------------------------------------------- */
+.screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--black);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  font-size: 8em;
+}
+.win {
+  color: var(--yellow);
+}
+.loose {
+  color: var(--red);
 }
 /* ----------------------------------------------- other ----------------------------------------------- */
 .paladin {
