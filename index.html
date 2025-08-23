@@ -4,12 +4,11 @@
     <meta charset="utf-8">
     <title>Gomel Oldschool Arena</title>
     <link href="css/style.css" rel="stylesheet">
-    <link href="css/font-styles.css" rel="stylesheet">
     <link type="image/x-icon" href="imgs/mortal-kombat.png" rel="shortcut icon">
     <link type="Image/x-icon" href="imgs/mortal-kombat.png" rel="icon">
   </head>
   <body>
-    <header class="wrapper">
+    <header id="header" class="wrapper over-top">
       <nav>
         <div id="menu-setting" class="header-menu">Setting</div>
         <div id="menu-profile" class="header-menu">Profile</div>
@@ -67,7 +66,66 @@
           <div class="fight-hp"></div>
         </div>
       </div>
-      <div class="fight-div"></div>
+      <div class="fight-div">
+        <p> Please hit one and defense two zones</p>
+        <div class="combat-menu-content">
+          <div class="combat-menu-attack">
+            <p>Attack</p>
+            <div class="menu-div">
+              <label for="a-head">Head</label>
+              <input class="fight-input" type="radio" id="a-head" name="attack" value="head">
+            </div>
+            <div class="menu-div">
+              <label for="a-body">Body</label>
+              <input class="fight-input" type="radio" id="a-body" name="attack" value="body">
+            </div>
+            <div class="menu-div">
+              <label for="a-lefthand">Left hand</label>
+              <input class="fight-input" type="radio" id="a-lefthand" name="attack" value="lefthand">
+            </div>
+            <div class="menu-div">
+              <label for="a-righthand">Right hand</label>
+              <input class="fight-input" type="radio" id="a-righthand" name="attack" value="righthand">
+            </div>
+            <div class="menu-div">
+              <label for="a-leftleg">Left leg</label>
+              <input class="fight-input" type="radio" id="a-leftleg" name="attack" value="leftleg">
+            </div>
+            <div class="menu-div">
+              <label for="a-rightleg">Right leg</label>
+              <input class="fight-input" type="radio" id="a-rightleg" name="attack" value="rightleg">
+            </div>
+          </div>
+          <div class="combat-menu-defense">
+            <p>Defense</p>
+            <div class="menu-div">
+              <input class="fight-input" type="checkbox" id="d-head" name="defense" value="head">
+              <label for="d-head">Head</label>
+            </div>
+            <div class="menu-div">
+              <input class="fight-input" type="checkbox" id="d-body" name="defense" value="body">
+              <label for="d-body">Body</label>
+            </div>
+            <div class="menu-div">
+              <input class="fight-input" type="checkbox" id="d-lefthand" name="defense" value="lefthand">
+              <label for="d-lefthand">Left hand</label>
+            </div>
+            <div class="menu-div">
+              <input class="fight-input" type="checkbox" id="d-righthand" name="defense" value="righthand">
+              <label for="d-righthand">Right hand</label>
+            </div>
+            <div class="menu-div">
+              <input class="fight-input" type="checkbox" id="d-leftleg" name="defense" value="leftleg">
+              <label for="d-leftleg">Left leg</label>
+            </div>
+            <div class="menu-div">
+              <input class="fight-input" type="checkbox" id="d-rightleg" name="defense" value="rightleg">
+              <label for="d-rightleg">Right leg</label>
+            </div>
+          </div>
+        </div>
+        <div class="run-fight">Attack!</div>
+      </div>
       <div class="fight-div">
         <h3 class="fight-name-enemy"></h3>
         <div class="fight-img-enemy"></div>
