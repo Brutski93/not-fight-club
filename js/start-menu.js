@@ -418,9 +418,9 @@ tempDate.forEach(a => {
 if (!gameInfo) {// first run
   showStart();
   removeAllImgExsept();
-  profileWins.innerText('0');
+  profileWins.innerText = '0';
   document.cookie = `countWin=0`;
-  profileLoose.innerText('0');
+  profileLoose.innerText = '0';
   document.cookie = `countLoose=0`;
 } 
 else showMain(); // continue game
