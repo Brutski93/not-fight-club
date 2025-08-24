@@ -413,8 +413,13 @@ h4 {
   background-size: 100%;
   background-position: center;
 }
-.dk {
+.knight {
   background: url(https://sun9-36.userapi.com/s/v1/ig2/kHzK_8j8kg0_GSIC3NtAne-zLxhP7kP4mT0zH__-6XFtDnbiF3IyRcsNNRwEa9FGAK8FaTaSY4ThVDH7ezSm8K0o.jpg?quality=95&as=32x40,48x60,72x90,108x135,160x200,200x250&from=bu&cs=200x0) no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
+.bandit {
+  background: url(https://sun9-53.userapi.com/s/v1/ig2/cvQ18or4iBlJpd1CVnqBRALYgnX1YZ-hdDYjatcbdNNjbgLoU3k17AxyhYoB6okqWHKyWP7H8oxV4FLXXO856OUU.jpg?quality=95&as=32x40,48x60,72x90,108x135,160x200,200x250&from=bu&cs=200x0) no-repeat;
   background-size: 100%;
   background-position: center;
 }
