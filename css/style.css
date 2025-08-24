@@ -329,6 +329,7 @@ h4 {
   left: 0;
   z-index: 5;
   font-size: 8em;
+  text-align: center;
 }
 .win {
   color: var(--yellow);

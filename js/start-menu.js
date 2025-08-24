@@ -234,8 +234,8 @@ function isFightNotStarted() {
 function getRandonEnemy() {
   const random = getRandom(enemys.length);
   document.cookie = `enemyName=${enemys[random].name}`;
-  fightNameEnemy.innerText = enemys[random].name[0].toUpperCase() + enemys[random].name.slice(1).toUpperCase();
-  fightImgEnemy.classList.add(`${enemys[random].name}`);
+  fightNameEnemy.innerText = enemys[random].name[0].toUpperCase() + enemys[random].name.slice(1).toLowerCase();
+  resetEnemyImg(enemys[random].name);
   fightHPEnemy.style.width = '100%';
   document.cookie = `enemyHP=100%`;
   fightHP.style.width = '100%';
@@ -249,13 +249,7 @@ function resetFight() {
       fightNameEnemy.innerText = a.slice(11, 12).toUpperCase() + a.slice(12);
       resetEnemyImg(a.slice(11));
     }
-    if (a.includes('enemyHP')) {
-      fightHPEnemy.style.width = a.slice(9);
-      if (fightHPEnemy.style.width === '100%') {
-        fightHP.style.width = '100%';
-        document.cookie = `playerHP=100%`;
-      }
-    }
+    if (a.includes('enemyHP')) fightHPEnemy.style.width = a.slice(9);
     if (a.includes('playerHP')) fightHP.style.width = a.slice(10);
   });
 }
@@ -269,9 +263,15 @@ function resetEnemyImg(name) {
 
 function checkIsReadyToFight() {
   const selectedAttack = document.querySelectorAll('input[name="attack"]:checked');
-  if (selectedAttack.length !== 1) return false;
+  if (selectedAttack.length !== 1) {
+    buttonRunFight.classList.remove('run-fight-active');
+    return false;
+  }
   const selectedDefense = document.querySelectorAll('input[name="defense"]:checked');
-  if (selectedDefense.length !== 2) return false;
+  if (selectedDefense.length !== 2) {
+    buttonRunFight.classList.remove('run-fight-active');
+    return false;
+  }
   buttonRunFight.classList.add('run-fight-active');
   return true;
 }
@@ -317,8 +317,9 @@ function campareAttaksAndMakeLog(pa, pd, ea, ed) {
   } else {
     text = `${playerName} attacks ${enemyName}'s ${pa} and deal to ${enemyName} 10 damage.`;
     creatAndPrepend(fightLog, 'p', false, text);
-    dealDamageToEnemy();
+    text = dealDamageToEnemy();
   }
+  if (text === 99) return;
   for (let i = 0; i < ea.length; i += 1) {
     if (pd.includes(ea[i])) {
       text = `${enemyName} attacks ${playerName}'s ${ea[i]}, but ${playerName} blocks it.`
@@ -326,7 +327,8 @@ function campareAttaksAndMakeLog(pa, pd, ea, ed) {
     } else {
       text = `${enemyName} attacks ${playerName}'s ${ea[i]} and deal to ${playerName} 10 damage.`;
       creatAndPrepend(fightLog, 'p', false, text);
-      dealDamageToPlayer();
+      text = dealDamageToPlayer();
+      if (text === 99) return;
     }
   }
 }
@@ -341,7 +343,7 @@ function dealDamageToEnemy() {
     fightHPEnemy.style.width = '0%';
     document.cookie = `enemyHP=0%`;
     winFight();
-    return;
+    return 99;
   } else {
     const finaleHP = currentHP - damageHP + '%';
     fightHPEnemy.style.width = finaleHP;
@@ -358,6 +360,7 @@ function dealDamageToPlayer() {
     fightHP.style.width = '0%';
     document.cookie = `playerHP=0%`;
     looseFight();
+    return 99;
   } else {
     const finaleHP = currentHP - damageHP + '%';
     fightHP.style.width = finaleHP;
@@ -378,8 +381,7 @@ function winFight() {
   showMain();
   increaseWins();
   setTimeout(toggleWinScreen, 3000);
-  fightHP.style.width = '100%';
-  document.cookie = `playerHP=100%`;
+  fightLog.innerHTML = '';
 }
 
 function looseFight() {
@@ -388,8 +390,7 @@ function looseFight() {
   showMain();
   increaseLoose();
   setTimeout(toggleLooseScreen, 3000);
-  fightHP.style.width = '100%';
-  document.cookie = `playerHP=100%`;
+  fightLog.innerHTML = '';
 }
 
 function toggleWinScreen() {
