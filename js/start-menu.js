@@ -52,9 +52,14 @@ const enemys = [{
   attacks: 2,
   defense: 1
 }, {
-  name: 'dk',
+  name: 'knight',
   ph: 100,
   attacks: 2,
+  defense: 2
+}, {
+  name: 'bandit',
+  ph: 100,
+  attacks: 1,
   defense: 2
 }];
 
@@ -279,7 +284,9 @@ function checkIsReadyToFight() {
 function getArrWithEnemyActions(num) {
   const arr = [];
   for (let i = 0; i < num; i += 1) {
-    arr.push(zones[getRandom(zones.length)]);
+    let temp = zones[getRandom(zones.length)];
+    if (i !== 0 && zones[getRandom(zones.length)] === arr[0]) temp = zones[getRandom(zones.length)];
+    arr.push(temp);
   }
   return arr;
 }
@@ -315,14 +322,15 @@ function campareAttaksAndMakeLog(pa, pd, ea, ed) {
     text = `${playerName} attacks ${enemyName}'s ${pa} , but ${enemyName} blocks it.`
     creatAndPrepend(fightLog, 'p', false, text);
   } else {
-    text = `${playerName} attacks ${enemyName}'s ${pa} and deal to ${enemyName} 10 damage.`;
+    text = `${playerName} attacks ${enemyName}'s ${pa} and deal to ${enemyName} 15 damage.`;
+    if (fightImg.className.includes('bard')) text = `${playerName} attacks ${enemyName}'s ${pa} and deal to ${enemyName} 40 damage.`;
     creatAndPrepend(fightLog, 'p', false, text);
     text = dealDamageToEnemy();
   }
   if (text === 99) return;
   for (let i = 0; i < ea.length; i += 1) {
     if (pd.includes(ea[i])) {
-      text = `${enemyName} attacks ${playerName}'s ${ea[i]}, but ${playerName} blocks it.`
+      text = `${enemyName} attacks ${playerName}'s ${ea[i]}, but ${playerName} blocks it.`;
       creatAndPrepend(fightLog, 'p', false, text);
     } else {
       text = `${enemyName} attacks ${playerName}'s ${ea[i]} and deal to ${playerName} 10 damage.`;
@@ -410,7 +418,7 @@ function increaseLoose() {
   profileLoose.innerText = temp;
   document.cookie = `countLoose=${temp}`;
 }
-// document.cookie = `enemyHP=1%`;
+document.cookie = `enemyName=knight`;
 // ------------------- builder --------------------------------------
 let gameInfo = false;
 const tempDate = document.cookie.split(';');
@@ -445,3 +453,18 @@ for (let i = 0; i < 13; i += 1) {
 // end build profile all cards
 const profileAllCards = document.querySelectorAll('.profile-classes-card'); // change class function
 profileAllCards.forEach(a => a.addEventListener('click', changeClass));
+
+console.log(
+  'Моя предпологаемая оценка:\n1. Экран регистрации: 10 баллов',
+  '\n2. Домашняя страница: 5 баллов',
+  '\n3. Страница персонажа: 25 баллов',
+  '\n4. Страница настроек: 10 баллов',
+  '\n5. Страница с боем: 85 баллов',
+  '\n - не реализована механика критических ударов',
+  '\n - не реализована стилистика логов боя',
+  '\n6. Бонусное задание: 15 баллов',
+  '\n - не реализована логика хранения логов боя',
+  '\n - всё остальное хранитсья в памяти:',
+  '\n     имя игрока, текущий враг, класс(картинка),\n     здоровье игрока и противника, списко побед и поражений',
+  '\nИтого: 150 баллов'
+)
