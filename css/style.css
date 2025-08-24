@@ -301,6 +301,8 @@ h4 {
 .menu-div {
   display: flex;
   justify-content: space-between;
+  margin: 9px 0;
+  font-size: 20px;
 }
 .run-fight {
   padding: 10px 15px;

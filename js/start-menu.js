@@ -141,7 +141,7 @@ function showStart() {
 }
 function showSetting() {
   hideAllSectionsExept(sectionSetting);
-  // console.log(document.cookie.split(';'));
+  console.log(document.cookie.split(';'));
 }
 function showProfile() {
   hideAllSectionsExept(sectionProfile);
@@ -237,8 +237,8 @@ function getRandonEnemy() {
   fightNameEnemy.innerText = enemys[random].name[0].toUpperCase() + enemys[random].name.slice(1).toUpperCase();
   fightImgEnemy.classList.add(`${enemys[random].name}`);
   fightHPEnemy.style.width = '100%';
-  fightHP.style.width = '100%';
   document.cookie = `enemyHP=100%`;
+  fightHP.style.width = '100%';
   document.cookie = `playerHP=100%`;
 }
 
@@ -251,6 +251,10 @@ function resetFight() {
     }
     if (a.includes('enemyHP')) {
       fightHPEnemy.style.width = a.slice(9);
+      if (fightHPEnemy.style.width === '100%') {
+        fightHP.style.width = '100%';
+        document.cookie = `playerHP=100%`;
+      }
     }
     if (a.includes('playerHP')) fightHP.style.width = a.slice(10);
   });
@@ -328,8 +332,10 @@ function campareAttaksAndMakeLog(pa, pd, ea, ed) {
 }
 
 function dealDamageToEnemy() {
+  let damage = 1500;
+  if (fightImg.className.includes('bard')) damage = 4000;
   const fullHP = enemys[getCurrentEnemyIndex()].ph;
-  const damageHP = Math.floor(1000 / fullHP); // change to 1000 latter
+  const damageHP = Math.floor(damage / fullHP);
   const currentHP = fightHPEnemy.style.width.slice(0, -1) - 0;
   if (currentHP <= damageHP) {
     fightHPEnemy.style.width = '0%';
@@ -344,8 +350,9 @@ function dealDamageToEnemy() {
 }
 
 function dealDamageToPlayer() {
+  let damage = 1000;
   const fullHP = 100;
-  const damageHP = Math.floor(1000 / fullHP);
+  const damageHP = Math.floor(damage / fullHP);
   const currentHP = fightHP.style.width.slice(0, -1) - 0;
   if (currentHP <= damageHP) {
     fightHP.style.width = '0%';
@@ -371,6 +378,8 @@ function winFight() {
   showMain();
   increaseWins();
   setTimeout(toggleWinScreen, 3000);
+  fightHP.style.width = '100%';
+  document.cookie = `playerHP=100%`;
 }
 
 function looseFight() {
@@ -379,6 +388,8 @@ function looseFight() {
   showMain();
   increaseLoose();
   setTimeout(toggleLooseScreen, 3000);
+  fightHP.style.width = '100%';
+  document.cookie = `playerHP=100%`;
 }
 
 function toggleWinScreen() {
