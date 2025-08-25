@@ -146,15 +146,21 @@ function showStart() {
 }
 function showSetting() {
   hideAllSectionsExept(sectionSetting);
-  console.log(document.cookie.split(';'));
+  showCookie();
 }
 function showProfile() {
   hideAllSectionsExept(sectionProfile);
 }
 function showFight() {
   hideAllSectionsExept(sectionFight);
-  if (isFightNotStarted()) getRandonEnemy();
-  else resetFight();
+  // if (isFightNotStarted()) getRandonEnemy();
+  // else resetFight();
+  resetFight();
+}
+function showCookie() {
+  let test1 = document.cookie.split('; ');
+  console.log('All cookie')
+  test1.forEach(a => console.log(a));
 }
 /* start */
 function changeHero(event) {
@@ -162,18 +168,19 @@ function changeHero(event) {
   event.currentTarget.classList.add('chouse-fighter-button-active');
   const newClass = event.currentTarget.innerHTML.toLowerCase();
   removeAllImgExsept(newClass);
-  document.cookie = `class=${newClass}`;
+  document.cookie = `class_____=${newClass}`;
 }
 
 function createHero() {
   changeName(input.value);
   document.cookie = 'gamestarted=yes';
+  getRandonEnemy();
   showMain();
   header.classList.remove('over-top');
 }
 /* setting */
 function changeName(name) {
-  document.cookie = `user=${name}`;
+  document.cookie = `user______=${name}`;
   settingName.innerText = name;
   profileName.innerText = name;
   fightName.innerText = name;
@@ -208,13 +215,13 @@ function changeClass(event) {
   if (!text) text = event.target.previousSibling.innerText;
   text = text.toLowerCase();
   removeAllImgExsept(text);
-  document.cookie = `class=${text}`;
+  document.cookie = `class_____=${text}`;
 }
 /* fight */
 
 function getCurrentEnemyIndex() {
   let enemyIndex = false;
-  document.cookie.split(';').forEach(a => {
+  document.cookie.split('; ').forEach(a => {
     if (a.includes('enemyName')) {
       enemyIndex = a.slice(11);
       for (let i = 0; i < enemys.length; i += 1) {
@@ -238,24 +245,24 @@ function isFightNotStarted() {
 
 function getRandonEnemy() {
   const random = getRandom(enemys.length);
-  document.cookie = `enemyName=${enemys[random].name}`;
+  document.cookie = `enemyName_=${enemys[random].name}`;
   fightNameEnemy.innerText = enemys[random].name[0].toUpperCase() + enemys[random].name.slice(1).toLowerCase();
   resetEnemyImg(enemys[random].name);
   fightHPEnemy.style.width = '100%';
-  document.cookie = `enemyHP=100%`;
+  document.cookie = `enemyHP___=100%`;
   fightHP.style.width = '100%';
-  document.cookie = `playerHP=100%`;
+  document.cookie = `playerHP__=100%`;
 }
 
 function resetFight() {
-  const allCookie = document.cookie.split(';');
+  const allCookie = document.cookie.split('; ');
   allCookie.forEach(a => {
     if (a.includes('enemyName')) {
       fightNameEnemy.innerText = a.slice(11, 12).toUpperCase() + a.slice(12);
       resetEnemyImg(a.slice(11));
     }
-    if (a.includes('enemyHP')) fightHPEnemy.style.width = a.slice(9);
-    if (a.includes('playerHP')) fightHP.style.width = a.slice(10);
+    if (a.includes('enemyHP')) fightHPEnemy.style.width = a.slice(11);
+    if (a.includes('playerHP')) fightHP.style.width = a.slice(11);
   });
 }
 
@@ -349,13 +356,13 @@ function dealDamageToEnemy() {
   const currentHP = fightHPEnemy.style.width.slice(0, -1) - 0;
   if (currentHP <= damageHP) {
     fightHPEnemy.style.width = '0%';
-    document.cookie = `enemyHP=0%`;
+    document.cookie = `enemyHP___=0%`;
     winFight();
     return 99;
   } else {
     const finaleHP = currentHP - damageHP + '%';
     fightHPEnemy.style.width = finaleHP;
-    document.cookie = `enemyHP=${finaleHP}`;
+    document.cookie = `enemyHP___=${finaleHP}`;
   }
 }
 
@@ -366,13 +373,13 @@ function dealDamageToPlayer() {
   const currentHP = fightHP.style.width.slice(0, -1) - 0;
   if (currentHP <= damageHP) {
     fightHP.style.width = '0%';
-    document.cookie = `playerHP=0%`;
+    document.cookie = `playerHP__=0%`;
     looseFight();
     return 99;
   } else {
     const finaleHP = currentHP - damageHP + '%';
     fightHP.style.width = finaleHP;
-    document.cookie = `playerHP=${finaleHP}`;
+    document.cookie = `playerHP__=${finaleHP}`;
   }
 }
 
@@ -411,35 +418,43 @@ function toggleLooseScreen() {
 function increaseWins() {
   const temp = profileWins.innerText - 0 + 1;
   profileWins.innerText = temp;
-  document.cookie = `countWin=${temp}`;
+  document.cookie = `countWin__=${temp}`;
 }
 function increaseLoose() {
   const temp = profileLoose.innerText - 0 + 1;
   profileLoose.innerText = temp;
   document.cookie = `countLoose=${temp}`;
 }
-document.cookie = `enemyName=knight`;
+document.cookie = `enemyName_=knight`;
 // ------------------- builder --------------------------------------
 let gameInfo = false;
-const tempDate = document.cookie.split(';');
+const tempDate = document.cookie.split('; ');
 tempDate.forEach(a => {
+  // console.log(a.slice(0,12)); // delete
   if (a.includes('gamestarted')) {
     gameInfo = a; // check is character created
     header.classList.remove('over-top');
   }
-  if (a.includes('user')) changeName(a.slice(6));
-  if (a.includes('class')) {
-    profileImg.classList.add(a.slice(7)); // set profile image
-    fightImg.classList.add(a.slice(7)); // set fight image
+  if (a.includes('user')) {
+    changeName(a.slice(11));
+    console.log(a.slice(11)); // delete
   }
-  if (a.includes('countWin')) profileWins.innerText = a.slice(10);
-  if (a.includes('countLoose')) profileLoose.innerText = a.slice(12);
+  if (a.includes('class')) {
+    profileImg.classList.add(a.slice(11)); // set profile image
+    fightImg.classList.add(a.slice(11)); // set fight image
+  }
+  if (a.includes('countWin')) {
+    profileWins.innerText = a.slice(11);
+  }
+  if (a.includes('countLoose')) {
+    profileLoose.innerText = a.slice(11);
+  }
 });
 if (!gameInfo) {// first run
   showStart();
   removeAllImgExsept();
   profileWins.innerText = '0';
-  document.cookie = `countWin=0`;
+  document.cookie = `countWin__=0`;
   profileLoose.innerText = '0';
   document.cookie = `countLoose=0`;
 } 
