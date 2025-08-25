@@ -146,7 +146,6 @@ function showStart() {
 }
 function showSetting() {
   hideAllSectionsExept(sectionSetting);
-  showCookie();
 }
 function showProfile() {
   hideAllSectionsExept(sectionProfile);
@@ -157,7 +156,7 @@ function showFight() {
 }
 function showCookie() {
   let test1 = document.cookie.split('; ');
-  console.log('All cookie')
+  console.log('All cookie:')
   test1.forEach(a => console.log(a));
 }
 /* start */
@@ -170,6 +169,9 @@ function changeHero(event) {
 }
 
 function createHero() {
+  const tempClass = document.querySelector('.chouse-fighter-button-active');
+  removeAllImgExsept(tempClass.innerText.toLowerCase());
+  document.cookie = `class_____=${tempClass.innerText.toLowerCase()}`;
   changeName(input.value);
   document.cookie = 'gamestarted=yes';
   getRandonEnemy();
@@ -424,18 +426,27 @@ function increaseLoose() {
   document.cookie = `countLoose=${temp}`;
 }
 document.cookie = `enemyName_=knight`;
+// ------------------- dev --------------------------------------
+const buttonRestoreHP = document.querySelector('.restore-hp');
+const buttonChangeEnemy = document.querySelector('.change-enemy');
+const buttonShowCookie = document.querySelector('.show-cookie');
+
+buttonShowCookie.addEventListener('click', showCookie);
+buttonChangeEnemy.addEventListener('click', getRandonEnemy);
+buttonRestoreHP.addEventListener('click', () => {
+  fightHP.style.width = '100%';
+  document.cookie = `playerHP__=100%`;
+});
 // ------------------- builder --------------------------------------
 let gameInfo = false;
 const tempDate = document.cookie.split('; ');
 tempDate.forEach(a => {
-  // console.log(a.slice(0,12)); // delete
   if (a.includes('gamestarted')) {
     gameInfo = a; // check is character created
     header.classList.remove('over-top');
   }
   if (a.includes('user_')) {
     changeName(a.slice(11));
-    console.log(a.slice(11)); // delete
   }
   if (a.includes('class_')) {
     profileImg.classList.add(a.slice(11)); // set profile image

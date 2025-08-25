@@ -236,6 +236,21 @@ h4 {
   margin: 5px;
   padding: 3px;
 }
+.cheat-setting {
+  position: absolute;
+  width: 100%;
+  bottom: 5px;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: space-around;
+}
+.cheat-setting-div {
+  font-size: 18px;
+  border: 1px var(--black) solid;
+  padding: 2px;
+  cursor: pointer;
+}
 /* ----------------------------------------------- fight ----------------------------------------------- */
 .fight {
   display: flex;

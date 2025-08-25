@@ -87,4 +87,7 @@
   .over-left {
     left: -200vw;
   }
+  .screen {
+    font-size: 7em;
+  }
 }
