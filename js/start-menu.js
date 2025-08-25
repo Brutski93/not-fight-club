@@ -153,8 +153,6 @@ function showProfile() {
 }
 function showFight() {
   hideAllSectionsExept(sectionFight);
-  // if (isFightNotStarted()) getRandonEnemy();
-  // else resetFight();
   resetFight();
 }
 function showCookie() {
@@ -222,7 +220,7 @@ function changeClass(event) {
 function getCurrentEnemyIndex() {
   let enemyIndex = false;
   document.cookie.split('; ').forEach(a => {
-    if (a.includes('enemyName')) {
+    if (a.includes('enemyName_')) {
       enemyIndex = a.slice(11);
       for (let i = 0; i < enemys.length; i += 1) {
         if (enemys[i].name === enemyIndex) {
@@ -235,13 +233,13 @@ function getCurrentEnemyIndex() {
   return enemyIndex;
 }
 
-function isFightNotStarted() {
-  let fighIsStarted = true;
-  tempDate.forEach(a => {
-    if (a.includes('enemy')) fighIsStarted = false;
-  });
-  return fighIsStarted;
-}
+// function isFightNotStarted() {
+//   let fighIsStarted = true;
+//   tempDate.forEach(a => {
+//     if (a.includes('enemy')) fighIsStarted = false;
+//   });
+//   return fighIsStarted;
+// }
 
 function getRandonEnemy() {
   const random = getRandom(enemys.length);
@@ -257,12 +255,12 @@ function getRandonEnemy() {
 function resetFight() {
   const allCookie = document.cookie.split('; ');
   allCookie.forEach(a => {
-    if (a.includes('enemyName')) {
+    if (a.includes('enemyName_')) {
       fightNameEnemy.innerText = a.slice(11, 12).toUpperCase() + a.slice(12);
       resetEnemyImg(a.slice(11));
     }
-    if (a.includes('enemyHP')) fightHPEnemy.style.width = a.slice(11);
-    if (a.includes('playerHP')) fightHP.style.width = a.slice(11);
+    if (a.includes('enemyHP_')) fightHPEnemy.style.width = a.slice(11);
+    if (a.includes('playerHP_')) fightHP.style.width = a.slice(11);
   });
 }
 
@@ -435,15 +433,15 @@ tempDate.forEach(a => {
     gameInfo = a; // check is character created
     header.classList.remove('over-top');
   }
-  if (a.includes('user')) {
+  if (a.includes('user_')) {
     changeName(a.slice(11));
     console.log(a.slice(11)); // delete
   }
-  if (a.includes('class')) {
+  if (a.includes('class_')) {
     profileImg.classList.add(a.slice(11)); // set profile image
     fightImg.classList.add(a.slice(11)); // set fight image
   }
-  if (a.includes('countWin')) {
+  if (a.includes('countWin_')) {
     profileWins.innerText = a.slice(11);
   }
   if (a.includes('countLoose')) {
